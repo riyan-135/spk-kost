@@ -29,13 +29,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($nilai as $item)
+                            @foreach ($alternative as $item)
                                 <tr>
-                                    <td>{{$item->alternatif->nama_alternative}}</td>
-                                    <td>{{$item->harga}}</td>
-                                    <td>{{$item->jarak}}</td>
-                                    <td>{{$item->fasilitas}}</td>
-                                    <td>{{$item->luas_kamar}}</td>
+                                    <td>{{$item->kost->name}}</td>
+                                    <td>{{$item->harga->nilai}}</td>
+                                    <td>{{$item->jarak->nilai}}</td>
+                                    <td>{{$item->fasilitas->nilai}}</td>
+                                    <td>{{$item->luas->nilai}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -62,14 +62,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($nilai as $item)
+                            @foreach ($alternative as $item)
                                 <tr>
-                                    <td>{{$item->alternatif->nama_alternative}}</td>
-                                    {{-- {{}} --}}
-                                    <td>{{$item->min('harga') / $item->harga}}</td>
-                                    <td>{{$item->min('jarak') / $item->jarak}}</td>
-                                    <td>{{$item->fasilitas / $item->max('fasilitas')}}</td>
-                                    <td>{{$item->luas_kamar / $item->max('luas_kamar')}}</td>
+                                    <td>{{$item->kost->name}}</td>
+                                    <td>{{$item->harga->min('nilai') / $item->harga->nilai}}</td>
+                                    <td>{{$item->jarak->min('nilai') / $item->jarak->nilai}}</td>
+                                    <td>{{$item->fasilitas->nilai / $item->fasilitas->max('nilai')}}</td>
+                                    <td>{{$item->luas->nilai / $item->luas->max('nilai')}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -101,25 +100,26 @@
                                 <th>
                                     Bobot
                                 </th>
-                                @foreach ($kriteria as $items => $key)
-                                    <td>{{$key->bobot}}</td>
-                                @endforeach
+                                    <td>4</td>
+                                    <td>3</td>
+                                    <td>2</td>
+                                    <td>2</td>
                             </tr>
-                            @foreach ($nilai as $item)
+                            @foreach ($alternative as $item)
                                 <tr>
-                                    <td>{{$item->alternatif->nama_alternative}}</td>
-                                    <td>{{$item->min('harga') / $item->harga}}</td>
-                                    <td>{{$item->min('jarak') / $item->jarak}}</td>
-                                    <td>{{$item->fasilitas / $item->max('fasilitas')}}</td>
-                                    <td>{{$item->luas_kamar / $item->max('luas_kamar')}}</td>
+                                    <td>{{$item->kost->name}}</td>
+                                    <td>{{$item->harga->min('nilai') / $item->harga->nilai}}</td>
+                                    <td>{{$item->jarak->min('nilai') / $item->jarak->nilai}}</td>
+                                    <td>{{$item->fasilitas->nilai / $item->fasilitas->max('nilai')}}</td>
+                                    <td>{{$item->luas->nilai / $item->luas->max('nilai')}}</td>
                                     <?php $total =0;
-                                    $total =  $item->harga / $item->min('harga') * 4 + $item->jarak / $item->min('jarak') * 3 + $item->fasilitas / $item->max('fasilitas') * 2 + $item->luas_kamar / $item->max('luas_kamar') * 2
+                                    $total =  $item->harga->nilai / $item->harga->min('nilai') * 4 + $item->jarak->nilai / $item->jarak->min('nilai') * 3 + $item->fasilitas->nilai / $item->fasilitas->max('nilai') * 2 + $item->luas->nilai / $item->luas->max('nilai') * 2
                                     ?>
                                     <td>
                                         {{$total}}
                                     </td>
                                     <?php $ranking[] = [
-                                        'kost' => $item->alternatif->nama_alternative,
+                                        'kost' => $item->kost->name,
                                         'total' => $total
                                     ]; ?>
                                 </tr>
@@ -151,21 +151,25 @@
                             // $datas = explode(" ",$data)
                             // $item = array($datas)
                             usort($ranking, function ($a, $b) {
-                            return strcmp($a['total'], $b['total']);
-                            // return $a['total'] <=> $b['total'];
+                                return strcmp($a['total'], $b['total']);
+                                // return $a['total'] <=> $b['total'];
                             });
                             $ranking = array_reverse($ranking);
 
                             $a = 1;
                             ?>
                             @foreach ($ranking as $t)
-                            <tr>
-                                <td>{{$t['kost']}}</td>
-                                <td>{{$t['total']}}</td>
-                            <td>
-                                {{$a++}}
-                            </td>
-                            </tr>
+                            @if ($t != null)
+                                <tr >
+                                    <td>{{$t['kost']}}</td>
+                                    <td>{{$t['total']}}</td>
+                                    <td>
+                                        {{$a++}}
+                                    </td>
+                                </tr>
+                            @else
+                                <tr>data empty</tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>

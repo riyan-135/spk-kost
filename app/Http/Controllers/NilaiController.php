@@ -16,19 +16,9 @@ class NilaiController extends Controller
      */
     public function index()
     {
-        $kriteria = Kriteria::get();
-        $alternative = Alternative::with(['user'])->where('user_id', auth()->user()->id)->get();
-        $nilai = Nilai::with(['alternatif'])->where('user_id', auth()->user()->id)->get();
-        // dd($nilai[0]);
-        $normalisasi = Nilai::with([]);
+        $alternative = Alternative::with(['user', 'kost', 'harga', 'fasilitas', 'jarak', 'luas'])->where('user_id', auth()->user()->id)->get();
 
-
-        // $price = [];
-        foreach ($nilai as $item) {
-            $normal = $item->harga / $normalisasi->max('harga');
-        }
-
-        return view('user.nilai.index', compact(['kriteria', 'alternative', 'nilai', ]));
+        return view('user.nilai.index', compact(['alternative']));
     }
 
     /**

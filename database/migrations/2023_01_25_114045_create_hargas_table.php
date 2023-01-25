@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddKostIdToAlternativesTable extends Migration
+class CreateHargasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddKostIdToAlternativesTable extends Migration
      */
     public function up()
     {
-        Schema::table('alternatives', function (Blueprint $table) {
-            $table->bigInteger('kost_id')->after('user_id');
+        Schema::create('hargas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->integer('nilai');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddKostIdToAlternativesTable extends Migration
      */
     public function down()
     {
-        Schema::table('alternatives', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('hargas');
     }
 }

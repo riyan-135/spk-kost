@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUserIdToAlternativesTable extends Migration
+class CreateLuasKamarsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddUserIdToAlternativesTable extends Migration
      */
     public function up()
     {
-        Schema::table('alternatives', function (Blueprint $table) {
-            $table->bigInteger('user_id')->after('id');
+        Schema::create('luas_kamars', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->integer('nilai');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddUserIdToAlternativesTable extends Migration
      */
     public function down()
     {
-        Schema::table('alternatives', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('luas_kamars');
     }
 }

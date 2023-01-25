@@ -15,13 +15,12 @@ class CreateAlternativesTable extends Migration
     {
         Schema::create('alternatives', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_alternative');
-            $table->string('hasil_alternative');
-            $table->string('harga');
-            $table->string('luas_kamar')->nullable();
-            $table->string('fasilitas');
-            $table->string('operator')->nullable();
-            $table->string('dekat_lokasi');
+            $table->bigInteger('user_id');
+            $table->bigInteger('kost_id');
+            $table->bigInteger('harga_id');
+            $table->bigInteger('jarak_id');
+            $table->bigInteger('fasilitas_id');
+            $table->bigInteger('luas_kamar_id');
             $table->timestamps();
         });
     }

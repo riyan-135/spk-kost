@@ -44,13 +44,6 @@
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="index.html">
-                <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
-        </li>
-
         <!-- Divider -->
         <hr class="sidebar-divider">
 
@@ -70,6 +63,30 @@
             <a class="nav-link" href="{{url('/kriteria')}}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Kriteria</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/fasilitas')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Fasilitas</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/harga')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Harga</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/jarak')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Jarak</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{url('/luas')}}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Luas Kamar</span></a>
         </li>
 
         <!-- Divider -->
